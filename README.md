@@ -65,7 +65,7 @@ Whether you find a bug or have a feature request, please contact us. With your h
 
 Follow our kanban boards to be up to date
 
-[Kanban board](https://github.com/orgs/chegojs/projects/3)
+[Kanban board](https://github.com/orgs/chegojs/projects/7)
 
 Join the team, feel free to catch any task or suggest a new one.
 

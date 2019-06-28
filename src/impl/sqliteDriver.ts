@@ -3,6 +3,7 @@ import { parseSchemeToSQL, newSqlExecutor, SQLQuery, newQueryResult, } from '@ch
 import { templates } from './templates';
 import { sqlite3, verbose, Database, OPEN_READWRITE } from 'sqlite3';
 import { SQLiteConfig } from '../api/api';
+import { functions } from './functions';
 
 const asyncQuery = (sql:SQLQuery | string, db:Database) => new Promise((resolve, reject) => {
     if(typeof sql === 'string') {
@@ -22,7 +23,7 @@ const newTransactionHandle = (db: Database) => (queries: IQuery[]) =>
                 const result: IQueryResult = newQueryResult();
                 await asyncQuery('START TRANSACTION', db);
                 for (const query of queries) {
-                    const sql: SQLQuery = parseSchemeToSQL(query.scheme, templates);
+                    const sql: SQLQuery = parseSchemeToSQL(query.scheme, templates, functions);
                     await asyncQuery(sql, db).then(data => { result.setData(data); })
                     .catch((error:Error) => { throw error; });
                 }
@@ -37,7 +38,7 @@ const newTransactionHandle = (db: Database) => (queries: IQuery[]) =>
 
 const newQueryHandle = (db: Database) => (query: IQuery) =>
     new Promise((resolve, reject) => {
-        const sql: SQLQuery = parseSchemeToSQL(query.scheme, templates);
+        const sql: SQLQuery = parseSchemeToSQL(query.scheme, templates, functions);
         if(sql.type === QuerySyntaxEnum.Select) {
             db.all(sql.body, (error:Error, rows:any[]) => error ? reject(error) : resolve(rows));
         } else {
