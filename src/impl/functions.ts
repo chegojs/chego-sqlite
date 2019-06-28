@@ -105,9 +105,9 @@ const insertString: Fn<string> = (params:InsertParam, alias?: string) =>
 const instr: Fn<string> = (params: InstrParam, alias?: string) =>
     `INSTR(${params.value},${params.search}) ${alias ? alias : ''}`;
 const lcase: Fn<string> = (value: string, alias?: string) =>
-    `LCASE(${value}) ${alias ? alias : ''}`;
+    `LOWER(${value}) ${alias ? alias : ''}`;
 const ucase: Fn<string> = (value: string, alias?: string) =>
-    `UCASE(${value}) ${alias ? alias : ''}`;
+    `UPPER(${value}) ${alias ? alias : ''}`;
 const lTrim: Fn<string> = (value: string, alias?: string) =>
     `LTRIM(${value}) ${alias ? alias : ''}`;
 const rTrim: Fn<string> = (value: string, alias?: string) =>
